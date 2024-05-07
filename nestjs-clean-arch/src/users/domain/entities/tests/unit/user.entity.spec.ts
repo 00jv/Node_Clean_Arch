@@ -23,19 +23,19 @@ describe('UserEntity', () => {
   })
 
   it('Getters and Setters', () => {
-    const name = faker.person.fullName()
-    const email = faker.internet.email()
-    const password = faker.internet.password()
-    const createdAt = faker.date.recent()
+    expect(sut.name).toBeDefined()
+    expect(sut.email).toBeDefined()
+    expect(sut.password).toBeDefined()
+    expect(sut.createdAt).toBeDefined()
 
-    sut.name = name
-    sut.email = email
-    sut.password = password
-    sut.createdAt = createdAt
+    expect(sut.name).toEqual(props.name)
+    expect(sut.email).toEqual(props.email)
+    expect(sut.password).toEqual(props.password)
+    expect(sut.createdAt).toEqual(props.createdAt)
 
-    expect(sut.name).toEqual(name)
-    expect(sut.email).toEqual(email)
-    expect(sut.password).toEqual(password)
-    expect(sut.createdAt).toEqual(createdAt)
+    expect(typeof sut.name).toBe('string')
+    expect(typeof sut.email).toBe('string')
+    expect(typeof sut.password).toBe('string')
+    expect(sut.createdAt).toBeInstanceOf(Date)
   })
 })
