@@ -1,16 +1,11 @@
-import { faker } from '@faker-js/faker'
 import { UserEntity, UserProps } from '../../user.entity'
+import { UserDataBuilder } from '../../testing/helper/user-data-builder'
 describe('UserEntity', () => {
   let props: UserProps
   let sut: UserEntity
 
   beforeEach(() => {
-    props = {
-      name: faker.person.fullName(),
-      email: faker.internet.email(),
-      password: faker.internet.password(),
-      createdAt: faker.date.recent(),
-    }
+    props = UserDataBuilder({})
 
     sut = new UserEntity(props)
   })
@@ -22,7 +17,7 @@ describe('UserEntity', () => {
     expect(sut.createdAt).toBeInstanceOf(Date)
   })
 
-  it('Getters and Setters', () => {
+  it('Getters', () => {
     expect(sut.name).toBeDefined()
     expect(sut.email).toBeDefined()
     expect(sut.password).toBeDefined()
@@ -37,5 +32,35 @@ describe('UserEntity', () => {
     expect(typeof sut.email).toBe('string')
     expect(typeof sut.password).toBe('string')
     expect(sut.createdAt).toBeInstanceOf(Date)
+  })
+
+  it('Setters of name', () => {
+    sut['name'] = 'new name'
+
+    expect(sut.name).toEqual('new name')
+    expect(typeof sut.name).toBe('string')
+  })
+
+  it('Setters of email', () => {
+    sut.email = 'new email'
+
+    expect(sut.email).toEqual('new email')
+    expect(typeof sut.email).toBe('string')
+  })
+
+  it('Setters of password', () => {
+    sut['password'] = 'new password'
+    expect(sut.password).toEqual('new password')
+    expect(typeof sut.password).toBe('string')
+  })
+
+  it('UpdateName method', () => {
+    sut.update('new name')
+    expect(sut.name).toEqual('new name')
+  })
+
+  it('UpdatePassword method', () => {
+    sut.updatePassword('new password')
+    expect(sut.password).toEqual('new password')
   })
 })
